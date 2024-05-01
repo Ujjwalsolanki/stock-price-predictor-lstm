@@ -1,0 +1,15 @@
+setuptools
+pandas
+numpy
+scikit-learn
+pyarrow
+matplotlib
+seaborn
+flask
+pandas-datareader
+tensorflow
+keras
+yfinance
+notebook
+plotly
+cufflinks
