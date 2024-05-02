@@ -24,7 +24,7 @@ try:
     logging.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
     ## Create pipeline object and call it from here
     object = DataPreprocessing()
-    X_train, y_train, X_test, ytest = object.initiate_data_preprocessing()
+    df, X_train, y_train, X_test, y_test = object.initiate_data_preprocessing()
     logging.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
 except Exception as e:
     logging.exception(e)
@@ -36,7 +36,7 @@ try:
     logging.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
     ## Create pipeline object and call it from here
     object = ModelTrainer()
-    object.initiate_model_training(X_train, y_train, X_test, ytest)
+    object.initiate_model_training(df, X_train, y_train, X_test, y_test)
     logging.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
 except Exception as e:
     logging.exception(e)

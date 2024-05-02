@@ -40,7 +40,7 @@ class DataPreprocessing:
             # reshape into X=t,t+1,t+2,t+3 and Y=t+4
             time_step = 50
             X_train, y_train = self.create_dataset(train_data, time_step)
-            X_test, ytest = self.create_dataset(test_data, time_step)
+            X_test, y_test = self.create_dataset(test_data, time_step)
 
             # reshape input to be [samples, time steps, features] which is required for LSTM
             X_train =X_train.reshape(X_train.shape[0],X_train.shape[1] , 1)
@@ -48,7 +48,7 @@ class DataPreprocessing:
 
             # df.to_csv('training_files/clean_data.csv', index=False)
 
-            return X_train, y_train, X_test, ytest
+            return df, X_train, y_train, X_test, y_test
 
 
         except Exception as e:

@@ -22,11 +22,11 @@ class ModelTrainer:
         self.file_op = FileOperations()
 
 
-    def initiate_model_training(self, X_train, y_train, X_test, y_test):
+    def initiate_model_training(self, df, X_train, y_train, X_test, y_test):
         try:
             model = self.create_model()
 
-            model.fit(X_train,y_train,validation_data=(X_test,y_test),epochs=100,batch_size=64,verbose=1)
+            model.fit(X_train,y_train,validation_data=(X_test,y_test),epochs=10,batch_size=64,verbose=1)
 
             self.file_op.save_model(model, 'lstm.sav')
 
@@ -50,7 +50,7 @@ class ModelTrainer:
             test_rmse = math.sqrt(mean_squared_error(y_test,test_predict))
             logging.info(f'traing rmse: {test_rmse}')
 
-            self.plot_graphs(train_predict, test_predict)
+            self.plot_graphs(df, train_predict, test_predict)
             
         except Exception as e:
             logging.exception(e)
@@ -71,11 +71,11 @@ class ModelTrainer:
             logging.exception(e)
             raise e
         
-    def plot_graphs(self,train_predict, test_predict):
+    def plot_graphs(self,df, train_predict, test_predict):
         
         scaler = self.file_op.load_model('scaler.sav')
 
-        df = pd.read_csv('training_files/clean_data.csv')
+        # df = pd.read_csv('training_files/clean_data.csv')
         ### Plotting 
         # shift train predictions for plotting
         look_back=50
@@ -87,7 +87,7 @@ class ModelTrainer:
         testPredictPlot[:, :] = np.nan
         testPredictPlot[len(train_predict)+(look_back*2)+1:len(df)-1, :] = test_predict
         # plot baseline and predictions
-        # plt.plot(scaler.inverse_transform(df))
+        plt.plot(scaler.inverse_transform(df))
         plt.plot(df)
         plt.plot(trainPredictPlot)
         plt.plot(testPredictPlot)
