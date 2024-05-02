@@ -13,3 +13,6 @@ yfinance
 notebook
 plotly
 cufflinks
+ensure
+python-box
+PyYAML
