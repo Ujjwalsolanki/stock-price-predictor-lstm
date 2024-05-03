@@ -9,7 +9,7 @@ import shutil # type: ignore
 from ensure import ensure_annotations
 from pathlib import Path # type: ignore
 from logger import logging
-
+import keras
 
 class FileOperations:
     def __init__(self) -> None:
@@ -61,7 +61,7 @@ class FileOperations:
             raise e
      
     @ensure_annotations
-    def save_model(self, model, filename:str):
+    def save_model(self, model, file_name:str):
         """Save model at specific location default will be artifacts/models
 
         Args:
@@ -80,13 +80,15 @@ class FileOperations:
             #     os.makedirs(path)
             # else:
             #     os.makedirs(path) #
-            with open(path / filename, 'wb') as f:
+            if file_name == 'lstm.keras':
+                model.save(path / file_name)
+            with open(path / file_name, 'wb') as f:
                 pickle.dump(model, f) # save the model to file
-            logging.info('Model File '+filename+' saved. Exited the save_model method of the Model_Finder class')
+            logging.info('Model File '+file_name+' saved. Exited the save_model method of the Model_Finder class')
 
         except Exception as e:
             logging.exception('Exception occured in save_model method of the Model_Finder class. Exception message:  ' + str(e))
-            logging.exception('Model File '+filename+' could not be saved. Exited the save_model method of the Model_Finder class')
+            logging.exception('Model File '+file_name+' could not be saved. Exited the save_model method of the Model_Finder class')
             raise e
 
     @ensure_annotations
@@ -105,6 +107,11 @@ class FileOperations:
         logging.info('Entered the load_model method of the File_Operation class')
         try:
             model_directory = "artifacts/models/"
+            if file_name == 'lstm.keras':
+                model = keras.models.load_model(model_directory + file_name)
+                logging.info('Model File ' + file_name + ' loaded. Exited the load_model method of the Model_Finder class')
+                return model
+
             with open(model_directory + file_name, 'rb') as f:
                 model = pickle.load(f)
                 logging.info('Model File ' + file_name + ' loaded. Exited the load_model method of the Model_Finder class')

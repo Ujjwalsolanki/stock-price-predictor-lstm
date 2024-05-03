@@ -7,7 +7,7 @@ matplotlib
 seaborn
 flask
 pandas-datareader
-tensorflow
+# tensorflow
 keras
 yfinance
 notebook

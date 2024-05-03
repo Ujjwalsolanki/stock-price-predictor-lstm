@@ -2,20 +2,21 @@ from logger import logging
 from src.components.data_ingestion import DataIngestion
 from src.components.data_preprocessing import DataPreprocessing
 from src.components.model_trainer import ModelTrainer
+from src.components.prediction import Prediction
 
 
 
-# STAGE_NAME = "Data Ingestion Pipeline"
-# try:
+STAGE_NAME = "Data Ingestion Pipeline"
+try:
     
-#     logging.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
-#     ## Create pipeline object and call it from here
-#     object = DataIngestion()
-#     object.initiate_data_ingestion()
-#     logging.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
-# except Exception as e:
-#     logging.exception(e)
-#     raise e
+    logging.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
+    ## Create pipeline object and call it from here
+    object = DataIngestion()
+    object.initiate_data_ingestion()
+    logging.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
+except Exception as e:
+    logging.exception(e)
+    raise e
 
 
 STAGE_NAME = "Data Preprocessing Pipeline"
@@ -37,6 +38,19 @@ try:
     ## Create pipeline object and call it from here
     object = ModelTrainer()
     object.initiate_model_training(df, X_train, y_train, X_test, y_test)
+    logging.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
+except Exception as e:
+    logging.exception(e)
+    raise e
+
+
+STAGE_NAME = "Model Prediction Pipeline"
+try:
+    
+    logging.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
+    ## Create pipeline object and call it from here
+    object = Prediction()
+    object.initiate_prediction()
     logging.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
 except Exception as e:
     logging.exception(e)

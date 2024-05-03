@@ -22,7 +22,7 @@ class DataPreprocessing:
             plt.savefig(file_path+'raw_data.png')
             df=df.reset_index()['Close']
 
-            df.to_csv('training_files/clean_data.csv')
+            df.to_csv('training_files/clean_data.csv', index=False)
 
             scaler=MinMaxScaler(feature_range=(0,1))
             # df=scaler.fit_transform(np.array(df)) # will give error so we have to reshape data

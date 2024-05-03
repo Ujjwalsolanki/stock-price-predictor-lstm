@@ -1,6 +1,5 @@
 import os
 from logger import logging
-from pathlib import Path
 
 
 import pandas as pd
@@ -9,10 +8,12 @@ import matplotlib.pyplot as plt
 import math
 from sklearn.metrics import mean_squared_error
 
+from tensorflow import keras
+
 ### Create the Stacked LSTM model
 from keras.models import Sequential
-from keras.layers import Dense
-from keras.layers import LSTM
+from keras.layers import Dense, LSTM
+import keras
 
 from src.utils.common import FileOperations
 
@@ -26,15 +27,14 @@ class ModelTrainer:
         try:
             model = self.create_model()
 
-            model.fit(X_train,y_train,validation_data=(X_test,y_test),epochs=10,batch_size=64,verbose=1)
+            model.fit(X_train,y_train,validation_data=(X_test,y_test),epochs=100,batch_size=64,verbose=1)
 
-            self.file_op.save_model(model, 'lstm.sav')
-
+            # keras.models.save_model("artifacts/models/lstm.h5")
+            keras.models.save_model(model, "artifacts/models/lstm.h5", overwrite=True)   
+                       
             ### Lets Do the prediction and check performance metrics
             train_predict=model.predict(X_train)
             test_predict=model.predict(X_test)
-
-            
 
             scaler = self.file_op.load_model('scaler.sav')
 
@@ -93,5 +93,5 @@ class ModelTrainer:
         plt.plot(testPredictPlot)
         file_path = os.path.join('graphs/')
         plt.savefig(file_path+'figure.png')
-        plt.show()
+        # plt.show()
         
