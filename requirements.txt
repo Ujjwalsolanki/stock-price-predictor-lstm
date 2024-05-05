@@ -16,3 +16,5 @@ cufflinks
 ensure
 python-box
 PyYAML
+fastapi[all]
+Jinja2

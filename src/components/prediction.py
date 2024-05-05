@@ -69,7 +69,8 @@ class Prediction:
             plt.plot(day_pred,scaler.inverse_transform(lst_output))
             # plt.plot(df.Close)
             plt.savefig('graphs/pred_data.png')
-            print(lst_output)
+            # print(lst_output)
+            return scaler.inverse_transform(lst_output)
         except Exception as e:
             logging.info(e)
             raise e
